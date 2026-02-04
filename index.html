@@ -352,12 +352,12 @@
         yesBtn.addEventListener('click', showResult);
 
         // Desktop: mouseenter
-        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('mouseenter', () => moveNoButton(false));
 
         // Mobile: touchstart (fires before click)
         noBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            moveNoButton();
+            moveNoButton(false);
         });
 
         // Initialize
