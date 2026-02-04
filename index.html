@@ -263,32 +263,53 @@
             }
         }
 
-        // Move the No button to a random position
-        function moveNoButton() {
+        // Move the No button to a random position (without changing text/size for auto-bounce)
+        function moveNoButton(isAutoBounce = false) {
             const maxX = window.innerWidth - noBtn.offsetWidth - 20;
             const maxY = window.innerHeight - noBtn.offsetHeight - 20;
 
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
+            const randomX = Math.max(20, Math.random() * maxX);
+            const randomY = Math.max(20, Math.random() * maxY);
 
             noBtn.style.position = 'fixed';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
 
-            // Change text
-            noClickCount++;
-            if (noClickCount < noTexts.length) {
-                noBtn.textContent = noTexts[noClickCount];
+            // Only change text and size when user interacts, not on auto-bounce
+            if (!isAutoBounce) {
+                noClickCount++;
+                if (noClickCount < noTexts.length) {
+                    noBtn.textContent = noTexts[noClickCount];
+                }
+
+                // Make button smaller
+                const scale = Math.max(0.5, 1 - (noClickCount * 0.1));
+                noBtn.style.transform = `scale(${scale})`;
+
+                // After many attempts, give up
+                if (noClickCount >= 8) {
+                    noBtn.textContent = 'Fine... YES!';
+                    noBtn.onclick = showResult;
+                }
+
+                // Reset auto-bounce timer when user interacts
+                resetAutoBounce();
             }
+        }
 
-            // Make button smaller
-            const scale = Math.max(0.5, 1 - (noClickCount * 0.1));
-            noBtn.style.transform = `scale(${scale})`;
+        // Auto-bounce timer
+        let autoBounceTimer = null;
+        let gameOver = false;
 
-            // After many attempts, give up
-            if (noClickCount >= 8) {
-                noBtn.textContent = 'Fine... YES!';
-                noBtn.onclick = showResult;
+        function resetAutoBounce() {
+            if (autoBounceTimer) clearTimeout(autoBounceTimer);
+            if (!gameOver) {
+                autoBounceTimer = setTimeout(() => {
+                    if (!gameOver) {
+                        moveNoButton(true); // Auto-bounce without changing text
+                        resetAutoBounce(); // Set up next auto-bounce
+                    }
+                }, 10000); // 10 seconds
             }
         }
 
@@ -314,6 +335,9 @@
 
         // Show result
         function showResult() {
+            gameOver = true;
+            if (autoBounceTimer) clearTimeout(autoBounceTimer);
+
             questionContainer.classList.add('hide');
             result.classList.add('show');
 
@@ -338,6 +362,14 @@
 
         // Initialize
         createFloatingHearts();
+
+        // Initial bounce after 2 seconds to show the effect
+        setTimeout(() => {
+            if (!gameOver) {
+                moveNoButton(true);
+                resetAutoBounce(); // Start the 10-second auto-bounce cycle
+            }
+        }, 2000);
     </script>
 </body>
 </html>
