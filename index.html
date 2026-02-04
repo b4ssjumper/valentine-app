@@ -228,16 +228,16 @@
     <div class="confetti" id="confetti"></div>
 
     <script>
-        // Sweet romantic/cute celebration GIFs
+        // Fun celebration GIFs - first one is "excited/yay" reaction
         const dancingGifs = [
-            'https://media.giphy.com/media/3oEjHV0z8S7WM4MwnK/giphy.gif', // Heart eyes love
-            'https://media.giphy.com/media/l4pTdcifPZLpDjL1e/giphy.gif', // Cute bear hug
-            'https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif', // Happy dance love
-            'https://media.giphy.com/media/ZBQhoZC0nqknSviPqT/giphy.gif', // Cute love celebration
-            'https://media.giphy.com/media/M90mJvfWfd5mbUuULX/giphy.gif', // Love hearts flying
-            'https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif', // Sweet couple dance
-            'https://media.giphy.com/media/l0HlN5Y28D9MzzcRy/giphy.gif', // Heart explosion
+            'https://media.giphy.com/media/3oz8xRF0v9WMAUVLNK/giphy.gif', // 1. Excited yay reaction
+            'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif', // 2. Happy dance
+            'https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif',     // 3. Dancing cat
+            'https://media.giphy.com/media/BlVnrxJgTGsUw/giphy.gif',     // 4. Kermit happy dance
+            'https://media.giphy.com/media/l46CyJmS9KUbokzsI/giphy.gif', // 5. Happy celebration
+            'https://media.giphy.com/media/6nuiJjOOQBBn2/giphy.gif',     // 6. Happy dance
         ];
+        let currentGifIndex = 0;
 
         const noTexts = ['No', 'Nope', 'Are you sure?', 'Really?', 'Think again!', 'Pretty please?', '🥺', 'Last chance!'];
         let noClickCount = 0;
@@ -335,6 +335,12 @@
             }, 5000);
         }
 
+        // Rotate through GIFs
+        function rotateGif() {
+            currentGifIndex = (currentGifIndex + 1) % dancingGifs.length;
+            resultGif.src = dancingGifs[currentGifIndex];
+        }
+
         // Show result
         function showResult() {
             gameOver = true;
@@ -343,8 +349,12 @@
             questionContainer.classList.add('hide');
             result.classList.add('show');
 
-            // Random dancing GIF
-            resultGif.src = dancingGifs[Math.floor(Math.random() * dancingGifs.length)];
+            // Start with first GIF (happy/excited reaction)
+            currentGifIndex = 0;
+            resultGif.src = dancingGifs[currentGifIndex];
+
+            // Rotate GIFs every 4 seconds
+            setInterval(rotateGif, 4000);
 
             // Create confetti
             createConfetti();
