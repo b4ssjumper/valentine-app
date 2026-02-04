@@ -228,13 +228,15 @@
     <div class="confetti" id="confetti"></div>
 
     <script>
-        // Dancing GIFs - using popular happy/dancing GIFs
+        // Sweet romantic/cute celebration GIFs
         const dancingGifs = [
-            'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif', // Happy dance
-            'https://media.giphy.com/media/l3q2Z6S6n38zjPswo/giphy.gif', // Celebration
-            'https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif',     // Dancing cat
-            'https://media.giphy.com/media/11sBLVxNs7v6WA/giphy.gif',    // Excited
-            'https://media.giphy.com/media/l46CyJmS9KUbokzsI/giphy.gif', // Happy dance
+            'https://media.giphy.com/media/3oEjHV0z8S7WM4MwnK/giphy.gif', // Heart eyes love
+            'https://media.giphy.com/media/l4pTdcifPZLpDjL1e/giphy.gif', // Cute bear hug
+            'https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif', // Happy dance love
+            'https://media.giphy.com/media/ZBQhoZC0nqknSviPqT/giphy.gif', // Cute love celebration
+            'https://media.giphy.com/media/M90mJvfWfd5mbUuULX/giphy.gif', // Love hearts flying
+            'https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif', // Sweet couple dance
+            'https://media.giphy.com/media/l0HlN5Y28D9MzzcRy/giphy.gif', // Heart explosion
         ];
 
         const noTexts = ['No', 'Nope', 'Are you sure?', 'Really?', 'Think again!', 'Pretty please?', '🥺', 'Last chance!'];
@@ -309,7 +311,7 @@
                         moveNoButton(true); // Auto-bounce without changing text
                         resetAutoBounce(); // Set up next auto-bounce
                     }
-                }, 3000); // 3 seconds
+                }, 6000); // 6 seconds
             }
         }
 
@@ -363,11 +365,11 @@
         // Initialize
         createFloatingHearts();
 
-        // Initial bounce after 2 seconds to show the effect
+        // Initial bounce after 2 seconds, then every 3 seconds
         setTimeout(() => {
             if (!gameOver) {
                 moveNoButton(true);
-                resetAutoBounce(); // Start the 10-second auto-bounce cycle
+                resetAutoBounce(); // Start the 3-second auto-bounce cycle
             }
         }, 2000);
     </script>
